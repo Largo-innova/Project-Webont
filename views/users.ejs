@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+<body>
+    <div class="app-container">
+        <%- include('partials/navbar') %>
+        <main class="main-content">
+            <h1>Gebruikersbeheer</h1>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Gebruikersnaam</th>
+                            <th>Rol</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(u => { %>
+                            <tr>
+                                <td><%= u.username %></td>
+                                <td>
+                                    <% if(u.role === 'ADMIN') { %>
+                                        <span style="color:var(--gold); font-weight:bold;">ADMIN</span>
+                                    <% } else { %>
+                                        USER
+                                    <% } %>
+                                </td>
+                                <td><span class="status-badge status-active">Geregistreerd</span></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+<%- include('partials/footer') %>

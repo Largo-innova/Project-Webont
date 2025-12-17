@@ -1,0 +1,62 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<nav>
+    <div class="nav-header">
+        <h2>
+            <i class="fa-solid fa-gamepad" style="margin-right: 10px;"></i>Web Project
+        </h2>
+        
+        <button class="burger-menu" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+    <div id="navLinks" class="nav-links-container">
+        
+        <a href="/">
+            <i class="fa-solid fa-house"></i> Home
+        </a>
+        
+        <a href="/characters">
+            <i class="fa-solid fa-user-secret"></i> Operator
+        </a>
+        
+        <a href="/units">
+            <i class="fa-solid fa-shield-halved"></i> Divisie
+        </a>
+        
+        <% if (user && user.role === 'ADMIN') { %>
+            <a href="/users" >
+                <i class="fa-solid fa-users-gear"></i> Gebruikers
+            </a>
+        <% } %>
+
+        <div style="flex-grow:1"></div> 
+
+        <a href="https://github.com/MounirAbdellaoui/Cod_Characters" target="_blank" style="font-size: 0.8rem; color: var(--text-muted);">
+            <i class="fa-brands fa-github"></i> GitHub Repo
+        </a>
+
+        <div class="user-info">
+            <% if (user) { %>
+                Ingelogd als: <strong><%= user.username %></strong>
+                <form action="/logout" method="POST" style="margin-top:10px;">
+                    <button type="submit" style="background:var(--danger); padding:5px 10px; font-size:0.8rem; width: 100%;">
+                        Uitloggen
+                    </button>
+                </form>
+            <% } %>
+        </div>
+    </div>
+</nav>
+
+<script>
+    function toggleMenu() {
+        const links = document.getElementById('navLinks');
+        if (links.style.display === 'flex') {
+            links.style.display = 'none';
+        } else {
+            links.style.display = 'flex';
+        }
+    }
+</script>

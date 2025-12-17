@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= character.name %> | Dossier</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <%- include('partials/navbar') %>
+
+        <main class="main-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <a href="/characters" class="btn-back">
+                    <i class="fa-solid fa-arrow-left"></i> Terug naar overzicht
+                </a>
+
+                <% if (user && user.role === 'ADMIN') { %>
+                    <a href="/characters/<%= character.id %>/edit" style="background-color: var(--accent); color: #000; padding: 10px 20px; border-radius: 6px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-pen-to-square"></i> EDIT OPERATOR
+                    </a>
+                <% } %>
+            </div>
+            
+            <div class="detail-card">
+                <div class="detail-image-container">
+                    <img src="<%= character.imageUrl %>" alt="<%= character.name %>">
+                </div>
+
+                <div class="detail-info">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span class="rank-badge"><%= character.rank %></span>
+                        <span style="color: var(--text-muted); font-family: monospace;">ID: <%= character.id %></span>
+                    </div>
+
+                    <h2><%= character.name %></h2>
+                    
+                    <p style="line-height: 1.6; color: var(--text-muted); margin-bottom: 30px;">
+                        <%= character.description %>
+                    </p>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Huidige Status</label>
+                            <span class="<%= character.isActive ? 'status-active' : 'status-inactive' %> status-badge">
+                                <i class="fa-solid <%= character.isActive ? 'fa-signal' : 'fa-skull' %>"></i>
+                                <%= character.isActive ? 'ACTIVE DUTY' : 'MIA / KIA' %>
+                            </span>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Geboortedatum</label>
+                            <span><%= character.birthDate %></span>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Leeftijd</label>
+                            <span><%= character.age %> Jaar</span>
+                        </div>
+
+                        <div class="info-item">
+                            <label>Specialisatie Wapens</label>
+                            <span style="font-size: 0.95rem; color: var(--accent);">
+                                <i class="fa-solid fa-gun"></i> <%= character.weapons.join(' // ') %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="unit-link-box">
+                        <label style="color:var(--text-muted); font-size:0.8rem; text-transform:uppercase; letter-spacing: 1px;">Toegewezen Eenheid</label>
+                        <h3 style="margin-top:5px;">
+                            <a href="/units/<%= character.unit.id %>" style="color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                                <i class="fa-solid fa-shield-halved" style="color: var(--gold);"></i>
+                                <span style="border-bottom: 1px solid var(--text-muted);"><%= character.unit.name %></span>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">&rarr;</span>
+                            </a>
+                        </h3>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

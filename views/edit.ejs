@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Edit <%= character.name %></title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <%- include('partials/navbar') %>
+
+        <main class="main-content">
+            <a href="/characters/<%= character.id %>" class="btn-back-link">&larr; Annuleren</a>
+            
+            <div class="detail-card edit-card">
+                <h1>Edit: <%= character.name %></h1>
+
+                <form action="/characters/<%= character.id %>/edit" method="POST">
+                    
+                    <div class="form-group">
+                        <label>Operator Naam</label>
+                        <input type="text" name="name" value="<%= character.name %>" required class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Leeftijd</label>
+                        <input type="number" name="age" value="<%= character.name === 'Unknown' ? 0 : character.age %>" required class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="isActive" class="form-input">
+                            <option value="true" <%= character.isActive ? 'selected' : '' %>>Active</option>
+                            <option value="false" <%= !character.isActive ? 'selected' : '' %>>MIA / Inactive</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Beschrijving</label>
+                        <textarea name="description" rows="5" required class="form-input"><%= character.description %></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-save">
+                        💾 Opslaan
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

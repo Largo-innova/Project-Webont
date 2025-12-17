@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COD Dashboard | Divisions</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <%- include('partials/navbar') %>
+
+        <main class="main-content">
+            <h1>Active Divisions</h1>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Selecteer een divisie om classified unit intel te bekijken.</p>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
+                
+                <% units.forEach(unit => { %>
+                    <div class="detail-card" style="margin-top: 0; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px;">
+                        
+                        <div style="width: 120px; height: 120px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
+                            <img src="<%= unit.emblemUrl %>" alt="<%= unit.name %>" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));">
+                        </div>
+
+                        <h3 style="color: var(--gold); font-size: 1.5rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">
+                            <%= unit.name %>
+                        </h3>
+
+                        <p style="color: var(--text-muted); font-style: italic; margin-bottom: 25px; min-height: 40px;">
+                            "<%= unit.motto %>"
+                        </p>
+
+                        <div style="margin-bottom: 25px;">
+                            <% if(unit.isElite) { %>
+                                <span style="background: rgba(251, 191, 36, 0.2); color: var(--gold); padding: 5px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--gold);">
+                                    ★ ELITE SQUAD
+                                </span>
+                            <% } else { %>
+                                <span style="background: rgba(255, 255, 255, 0.1); color: var(--text-muted); padding: 5px 12px; border-radius: 4px; font-size: 0.8rem;">
+                                    STANDARD INFANTRY
+                                </span>
+                            <% } %>
+                        </div>
+
+                        <a href="/units/<%= unit.id %>" class="btn-detail" style="margin-top: auto; border: 1px solid var(--accent); padding: 10px 20px; border-radius: 6px; text-decoration: none; transition: background 0.3s;">
+                            VIEW INTEL
+                        </a>
+
+                    </div>
+                <% }) %>
+
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COD Dashboard | Operators</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <%- include('partials/navbar') %>
+
+        <main class="main-content">
+            <h1>Mission Overview</h1>
+
+            <form action="/characters" method="GET" class="filter-container">
+                <input type="text" name="search" value="<%= search %>" placeholder="Zoek Operator (bijv. Soap)...">
+                <button type="submit">SEARCH INTEL</button>
+                
+                <% if(search) { %>
+                    <a href="/characters" style="color: var(--danger); font-size: 0.9rem; font-weight: bold;">✕ RESET</a>
+                <% } %>
+            </form>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <a href="/characters?sort=name&order=<%= sortOrder === 1 ? 'desc' : 'asc' %>&search=<%= search %>">
+                                    OPERATOR ↕
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a href="/characters?sort=rank&order=<%= sortOrder === 1 ? 'desc' : 'asc' %>&search=<%= search %>">
+                                    RANK ↕
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a href="/characters?sort=age&order=<%= sortOrder === 1 ? 'desc' : 'asc' %>&search=<%= search %>">
+                                    LEEFTIJD ↕
+                                </a>
+                            </th>
+                            
+                            <th>
+                                <a href="/characters?sort=isActive&order=<%= sortOrder === 1 ? 'desc' : 'asc' %>&search=<%= search %>">
+                                    STATUS ↕
+                                </a>
+                            </th>
+
+                            <th>
+                                <a href="/characters?sort=unit&order=<%= sortOrder === 1 ? 'desc' : 'asc' %>&search=<%= search %>">
+                                    UNIT ↕
+                                </a>
+                            </th>
+
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(characters.length === 0) { %>
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                                    ⚠️ GEEN OPERATORS GEVONDEN IN DATABASE
+                                </td>
+                            </tr>
+                        <% } %>
+
+                        <% characters.forEach(char => { %>
+                            <tr>
+                                <td>
+                                    <div class="character-cell">
+                                        <img src="<%= char.imageUrl %>" alt="<%= char.name %>" class="char-thumb">
+                                        <span style="font-weight: bold; font-size: 1.05rem;"><%= char.name %></span>
+                                    </div>
+                                </td>
+
+                                <td style="color: var(--gold); font-weight: 600; letter-spacing: 0.5px;">
+                                    <%= char.rank %>
+                                </td>
+
+                                <td><%= char.age %></td>
+
+                                <td>
+                                    <span class="status-badge <%= char.isActive ? 'status-active' : 'status-inactive' %>">
+                                        <%= char.isActive ? 'ACTIVE' : 'MIA/KIA' %>
+                                    </span>
+                                </td>
+
+                                <td><%= char.unit.name %></td>
+
+                                <td style="text-align: right;">
+                                    <a href="/characters/<%= char.id %>" class="btn-detail">VIEW INTEL &rarr;</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
